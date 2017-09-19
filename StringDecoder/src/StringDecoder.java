@@ -1,70 +1,57 @@
 import java.util.Scanner;
+
 public class StringDecoder {
-	//main method(Call for other methods & validation for number)
-	public static void main(String [] args) throws Exception{
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter a word");
-		String word = in.next();
-		if(word.endsWith(String.valueOf(word.charAt(0))))
-		{
-			System.out.println("The word has "+getLength(word)+" letters.");
-			System.out.println("The word has "+numOfVowels(word)+" vowels.");
-			System.out.println(getLetters(word));
-		}
-		else
-		{
-			throw new Exception("The user entered a number");
-		}
-		
-	}
-	//Length method
-	public static int getLength(String str)throws Exception{
-		if(str.endsWith(String.valueOf(str.charAt(0))))
-		{
-			int length = str.length();
-			return length;
-		}
-		else
-		{
-			throw new Exception("The user entered a number");
-		}
-		
-	}
-	//Vowels method
-	public static int numOfVowels(String str)throws Exception{
-		if(str.endsWith(String.valueOf(str.charAt(0))))
-		{
-			str = str.toLowerCase();
-			int vowels = 0;
-			int i = 0;
-			for(i = 0; i<= str.length(); i++)
-			{
-				char ch = str.charAt(i);
-				if(ch == 'a' || ch == 'i' || ch == 'e' || ch == 'o' || ch == 'u')
-				{
-					vowels++;
-				}
-			}
-			return vowels;
-		}
-		else
-		{
-			throw new Exception("The user entered a number");
-		}
-	}
-	//First letter and last letter method
-	public static String getLetters(String str)throws Exception{
-		if(str.endsWith(String.valueOf(str.charAt(0))))
-		{
-			char firstLetter = str.charAt(0);
-			char lastLetter = str.charAt(str.length() - 1);
-			String results = firstLetter+" , "+lastLetter;
-			return results;
-		}
-		else
-		{
-			throw new Exception("The user entered a number");
-		}
+
+	public static void main(String[] args) {
+		StringDecoder stringdecoder = new StringDecoder();
+		String word = stringdecoder.readString("Enter a word");
+		System.out.println("The number of vowels: "+stringdecoder.getVowels(word));
+		System.out.println("Lenght of the word : " + stringdecoder.getLength(word));
+        stringdecoder.printLetters(word);
 	}
 
+	public String readString(String word) {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		System.out.println(word);
+		String input = in.next();
+		return input;
+	}
+
+	public boolean validateInput(String word) {
+
+		for (char c : word.toCharArray()) {
+			if (Character.isDigit(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public int getLength(String word) {
+		return word.length();
+	}
+
+	public int getVowels(String word) {
+		int count = 0;
+
+        word = word.toLowerCase();
+
+        for (char c : word.toCharArray())
+        {
+            if (c =='a' || c =='e' || c =='i' || c =='o' || c =='u')
+            {
+                count++;
+            }
+        }
+        return count;
+
+	}
+
+	public void printLetters(String word) {
+		int length = word.length();
+
+		System.out.println("First letter is : " + word.charAt(0));
+		System.out.println("Last letter is : " + word.charAt(length - 1));
+	}
 }
