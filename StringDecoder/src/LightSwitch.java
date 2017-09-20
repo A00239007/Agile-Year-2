@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class LightSwitch
 {
     private boolean on = false;
-    private boolean working = true;
+    private static boolean working = true;
 
     public LightSwitch()
     {
@@ -39,8 +39,8 @@ public class LightSwitch
     {
         return working;
     }
-
-
+    
+    
     public static void main(String [] args)
     {
         LightSwitch l = new LightSwitch();
@@ -56,7 +56,8 @@ public class LightSwitch
                 System.out.println("The Light is off");
             }
 
-            Scanner sc = new Scanner(System.in);
+            @SuppressWarnings("resource")
+			Scanner sc = new Scanner(System.in);
             String s =  sc.next();
 
             if(s.equals("+"))
