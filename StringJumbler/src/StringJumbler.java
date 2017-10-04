@@ -5,33 +5,72 @@ import java.util.Scanner;
 
 public class StringJumbler {
 
-	public static void main(String [] args) throws FileNotFoundException
+	public static void main(String [] args) throws Exception
 	{
 		StringJumbler g = new StringJumbler();
-		String file = g.analyseString();
-		System.out.println("They're "+g.countWords(file)+" words in this file.");
-		System.out.println("They're "+g.countVowels(file)+" words in this file.");
+		g.analyseString();
 	}
 	
-	public String analyseString() throws FileNotFoundException{
+	public void analyseString() throws Exception{
 		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(f);
-		String s = sc.next();
-		return s;
+		String s = null;
+		String jumble = "";
+		int count = 0;
+		int vowels = 0;
+		while(sc.hasNext())
+		{
+			s = sc.next();
+			vowels += countVowels(s);
+			count++;
+			jumble += jumbleString(s) + " ";
+		}
+		double avgVowels = (vowels/count);
+		System.out.println("The number of words in this file is: "+count);
+		System.out.println("The number of vowels in this file is: "+vowels);
+		System.out.println("The average number of vowels per word in this file is: "+avgVowels);
+		System.out.println("");
+		System.out.println("");
+		System.out.println(jumble);
 	}
 	
-	public int countWords(String s){
-		int count = 0;
-		for(int i = 0; i < s.length(); i++)
+	public int count() throws FileNotFoundException
+	{
+		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
+		Scanner sc = new Scanner(f);
+		String s = null;
+		int count1 = 0;
+		while(sc.hasNext())
 		{
-			char current = s.charAt(i);
-			if(current == ' ')
-			{
-				count++;
-			}
+			s = sc.next();
+			count1++;
 		}
-		return count;
+		return count1;
+	}
+	
+	public int vowels() throws FileNotFoundException
+	{
+		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(f);
+		String s = null;
+		int vowels1 = 0;
+		while(sc.hasNext())
+		{
+			s = sc.next();
+			vowels1 += countVowels(s);
+		}
+		return vowels1;
+	}
+	
+	public double avgVowels() throws FileNotFoundException
+	{
+		StringJumbler p = new StringJumbler();
+		int count = p.count();
+		int vowels = p.vowels();
+		double avg = vowels/count;
+		return avg; 
 	}
 	
 	public int countVowels(String s){
@@ -47,15 +86,32 @@ public class StringJumbler {
 		return count;
 	}
 	
-	public String jumbleString(String s)
+	public String jumbleString(String s)throws Exception
 	{
-		
-		ArrayList<String> t = new ArrayList<>();
-		for(int i = 0; i < s.length(); i++)
+		char [] jumble = s.toCharArray();
+		if(jumble.length > 3)
 		{
-			
+			for(int i = 1; i < (jumble.length-1); i++)
+			{
+				double flip = Math.random();
+				if(flip > 0.5)
+				{
+					char temp = jumble[i];
+					jumble[i] = jumble[i+1];
+					jumble[i+1] = temp;
+				}
+			}
+			String jumble1 = new String(jumble);
+			if(s != jumble1)
+			{
+				throw new Exception("No match");
+			}
+			return jumble1;
 		}
-		return s;
+		else
+		{
+			return s;
+		}
 	}
 	
 }
