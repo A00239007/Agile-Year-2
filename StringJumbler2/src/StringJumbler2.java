@@ -32,11 +32,11 @@ public class StringJumbler2{
 			{
 				fifthWord += s+" ";
 			}
-			words += s;
+			words +=  s + " ";
 		}
 		String [] wordsArray = words.split(" ");
 		File [] fa = new File[5];
-		for(int i = 0; i<fa.length; i++)
+		for(int i = 0; i < fa.length; i++)
 		{
 			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\text"+(i+1)+".txt");
 		}
@@ -51,6 +51,14 @@ public class StringJumbler2{
 		System.out.println("");
 		System.out.println("");
 		System.out.println(fifthWord);
+		System.out.println("");
+		System.out.println("");
+		for(int i = 0; i < fa.length; i++)
+		{
+			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\textShuffled"+(i+1)+".txt");
+		}
+		jumbleArray(fa);
+		splitFiles(fa,wordsArray);
 	}
 	
 	
@@ -98,10 +106,26 @@ public class StringJumbler2{
 
             for (int j =(i * partition); j < ((i+1) * partition); j++)
             {
-                pw.println(s[j]);
+                pw.print(s[j]+ " ");
+                
             }
 
             pw.close();
+        }
 	}
-}
+	
+	public void jumbleArray(File [] fa) throws FileNotFoundException
+	{	
+		for(int i =0; i < fa.length-1; i++)
+		{
+			double flip = Math.random();
+			if(flip > 0.5)
+			{
+				File temp = fa[i];
+				fa[i] = fa[i+1];
+				fa[i+1] = temp;
+			}
+		}
+	}
+	
 }
