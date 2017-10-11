@@ -4,31 +4,27 @@ public class MyArray {
 		MyArray w = new MyArray();
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
-		char [] word = w.createArray();
+		System.out.println("Enter a word");
+		char [] word = w.createArray(in.next());
 		System.out.println("Enter a letter for the first word");
 		String find = in.next();
 		w.findIndex(word, find);
-		char[][] secondWord = w.createArray2();
+		System.out.print("Enter a second word");
+		char[][] secondWord = w.createArray2(in.next());
 		System.out.println("Enter a letter for the second word");
 		String find2 = in.next();
 		w.findIndex2(secondWord,find2);
 		w.createCrossword2();
 	}
 	
-	public char[] createArray(){
-		@SuppressWarnings("resource")
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter a word");
-		char [] c = in.next().toCharArray();
+	public char[] createArray(String word){
+		char [] c = word.toCharArray();
 		return c;
 	}
 	
-	public char[][] createArray2(){
-		@SuppressWarnings("resource")
-		Scanner c = new Scanner(System.in);
-		System.out.print("Enter another word");
+	public char[][] createArray2(String word){
 		char[][] ca = new char[20][20];
-		ca[1] = c.next().toCharArray();
+		ca[1] = word.toCharArray();
 		return ca;
 	}
 	

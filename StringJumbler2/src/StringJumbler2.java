@@ -12,8 +12,9 @@ public class StringJumbler2{
 		g.analyseString();
 	}
 	
-	public void analyseString() throws Exception{
-		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
+	public void analyseString() throws Exception
+	{
+		File f = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\text.txt");
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(f);
 		String s = null;
@@ -28,37 +29,45 @@ public class StringJumbler2{
 			vowels += countVowels(s);
 			count++;
 			jumble += jumbleString(s) + " ";
-			if(count%5==0)
-			{
-				fifthWord += s+" ";
-			}
 			words +=  s + " ";
 		}
 		String [] wordsArray = words.split(" ");
 		File [] fa = new File[5];
 		for(int i = 0; i < fa.length; i++)
 		{
-			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\text"+(i+1)+".txt");
+			fa[i] = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\text"+(i+1)+".txt");
 		}
 		splitFiles(fa,wordsArray);
 		double avgVowels = (vowels/count);
 		System.out.println("The number of words in this file is: "+count);
-		System.out.println("The number of vowels in this file is: "+vowels);
+		printCountVowels(vowels);
 		System.out.println("The average number of vowels per word in this file is: "+avgVowels);
 		System.out.println("");
 		System.out.println("");
-		System.out.println(jumble);
+		printJumbleString(jumble);
 		System.out.println("");
 		System.out.println("");
-		System.out.println(fifthWord);
+		System.out.print(fifthWord(f));
 		System.out.println("");
 		System.out.println("");
 		for(int i = 0; i < fa.length; i++)
 		{
-			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\textShuffled"+(i+1)+".txt");
+			fa[i] = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\textShuffled"+(i+1)+".txt");
 		}
 		jumbleArray(fa);
 		splitFiles(fa,wordsArray);
+		for(int i = 0; i<fa.length; i++)
+		{
+			int counts = countWordFile(fa[i]);
+			System.out.println("The numnber of words in File "+i+" is: "+counts);
+		}
+		System.out.println("");
+		System.out.println("");
+		for(int i = 0; i < fa.length; i++)
+		{
+			vowels = countVowelFile(fa[i]);
+			System.out.println("The number of vowels in File "+i+" is: "+vowels);
+		}
 	}
 	
 	
@@ -74,6 +83,11 @@ public class StringJumbler2{
 			}
 		}
 		return count;
+	}
+	
+	public void printCountVowels(int i)
+	{
+		System.out.println("The number of vowels in the file: "+i);
 	}
 	
 	public String jumbleString(String s)throws Exception
@@ -94,6 +108,30 @@ public class StringJumbler2{
 		}
 		String jumble1 = new String(jumble);
 		return jumble1;
+	}
+	
+	public void printJumbleString(String jumble)
+	{
+		System.out.println(jumble);
+	}
+	
+	public String fifthWord(File f) throws FileNotFoundException
+	{
+		String currentWord = null;
+		String fifthWord = "";
+		int count = 0;
+		Scanner five = new Scanner(f);
+		while(five.hasNext())
+		{
+			currentWord = five.next();
+			if(count%5==0)
+			{
+				fifthWord += currentWord + " ";
+			}
+			count++;
+		}
+		five.close();
+		return fifthWord;
 	}
 	
 	public void splitFiles(File [] fa, String [] s) throws FileNotFoundException
@@ -126,6 +164,41 @@ public class StringJumbler2{
 				fa[i+1] = temp;
 			}
 		}
+	}
+	
+	public int countWordFile(File fa) throws FileNotFoundException
+	{
+		int count = 0;
+		String currentWord = "";
+		Scanner word = new Scanner(fa);
+		while(word.hasNext())
+		{
+			currentWord = word.next();
+			count++;
+		}
+		word.close();
+		return count;
+	}
+	
+	public int countVowelFile(File fa) throws FileNotFoundException
+	{
+		Scanner vowel = new Scanner(fa);
+		String currentWord = "";
+		int count = 0;
+		while(vowel.hasNext())
+		{
+			currentWord = vowel.next();
+			for(int i = 0; i < currentWord.length(); i++)
+			{
+				char current = currentWord.charAt(i);
+				if(current == 'e' || current == 'i' || current == 'a' || current == 'o' || current == 'u')
+				{
+					count++;
+				}
+			}
+		}
+		vowel.close();
+		return count;
 	}
 	
 }
