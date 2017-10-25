@@ -14,7 +14,7 @@ public class StringJumbler2{
 	
 	public void analyseString() throws Exception
 	{
-		File f = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\text.txt");
+		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(f);
 		String s = null;
@@ -35,7 +35,7 @@ public class StringJumbler2{
 		File [] fa = new File[5];
 		for(int i = 0; i < fa.length; i++)
 		{
-			fa[i] = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\text"+(i+1)+".txt");
+			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\text"+(i+1)+".txt");
 		}
 		splitFiles(fa,wordsArray);
 		double avgVowels = (vowels/count);
@@ -52,10 +52,12 @@ public class StringJumbler2{
 		System.out.println("");
 		for(int i = 0; i < fa.length; i++)
 		{
-			fa[i] = new File("C:\\Users\\Simon Harper\\Desktop\\New Folder\\textShuffled"+(i+1)+".txt");
+			fa[i] = new File("C:\\Users\\A00239007\\Desktop\\textShuffled"+(i+1)+".txt");
 		}
+		
 		jumbleArray(fa);
 		splitFiles(fa,wordsArray);
+		
 		for(int i = 0; i<fa.length; i++)
 		{
 			int counts = countWordFile(fa[i]);

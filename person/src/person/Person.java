@@ -1,38 +1,49 @@
 package person;
 
-public class Person implements Day, Month, Year, PhoneNumber{
+public class Person implements Day, Month, Year, PhoneNumber {
 
-    private String firstName;
-    private String lastName;
-    private String address;
-    private int day;
-    private int month;
-    private int year;
-    private int phoneNumber;
-    private String gender;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private int day;
+	private int month;
+	private int year;
+	private int phoneNumber;
+	private String gender;
 
-    public Person()
-    {
-        day = DEFAULT_DAYS;
-        month = DEFAULT_MONTH;
-        year = DEFAULT_YEAR;
-        phoneNumber = DEFAULT_PHONE;
-    }
+	public Person() {
+		day = DEFAULT_DAYS;
+		month = DEFAULT_MONTH;
+		year = DEFAULT_YEAR;
+		phoneNumber = DEFAULT_PHONE;
+	}
 
-    public Person(int d, int m, int y, int pN)
-    {
-        day = d;
-        month = m;
-        year = y;
-        phoneNumber = pN;
-    }
+	public Person(String fN, String lN,String ad, int d, int m, int y, int pN, String g) {
+		firstName = fN;
+		lastName = lN;
+		address = ad;
+		gender = g;
+		day = d;
+		month = m;
+		year = y;
+		phoneNumber = pN;
+	}
 
 	@Override
 	public void setPhone(int p) {
 		// TODO Auto-generated method stub
 		phoneNumber = p;
 	}
-
+	
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
 	@Override
 	public int getPhone() {
 		// TODO Auto-generated method stub
@@ -74,9 +85,10 @@ public class Person implements Day, Month, Year, PhoneNumber{
 		// TODO Auto-generated method stub
 		return day;
 	}
-	
-	public String toString()
-    {
-        return firstName + lastName + " \nHe lives at: " + address + " \nThe day he was pushed out ";
-    }
+
+	public String toString() {
+		return "\nName: "+firstName+" "+lastName+"\nGender: " + gender + "\nLives in: " + address
+				+ "\nDate of birth: " + day + "/" + month + "/" + year
+				+ "\nPhone Number: " + phoneNumber;
+	}
 }
