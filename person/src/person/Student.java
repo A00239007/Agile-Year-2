@@ -17,6 +17,11 @@ public class Student extends Person{
 		subjects2 = sub2;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public int StudentNumber()
+	{
+		return studentNumber;
+	}
 	public String toString()
 	{
 		return super.toString() + "\nStudent Number: "+studentNumber+"\nSubjects: "+subjects1+" and "+subjects2;

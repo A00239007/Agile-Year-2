@@ -17,6 +17,10 @@ public class Lecturer extends Person{
 		office2 = room2;
 		// TODO Auto-generated constructor stub
 	}
+	public int getStaffNumber()
+	{
+		return staffNumber;
+	}
 
 	public String toString()
     {

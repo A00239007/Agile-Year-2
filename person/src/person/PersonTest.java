@@ -113,13 +113,56 @@ public class PersonTest extends TestCase {
 			fail("Error in code");
 		}
 	}
-	// Test:
-	// Objective:
-	// Input(s):
-	// Output(s):
-
-	// Test:
-	// Objective:
-	// Input(s):
-	// Output(s):
+	// Test: 007
+	// Objective: 
+	// Input(s): Testing the Gender method
+	// Output(s): null
+	public void testPerson007()
+	{
+		Person testObj = new Person();
+		
+		try
+		{
+			assertEquals(null,testObj.getGender());
+		}
+		catch(Exception e)
+		{
+			fail("Error in code");
+		}
+	}
+	// Test: 008
+	// Objective: Testing the Staff Number method
+	// Input(s): 0
+	// Output(s): 0
+	public void testPerson008()
+	{
+		Lecturer testObj = new Lecturer();
+		
+		try
+		{
+			assertEquals(0,testObj.getStaffNumber());
+		}
+		catch(Exception e)
+		{
+			fail("Error in code");
+		}
+	}
+	
+	//Test: 009
+	//Objective: Testing the Student Number method
+	//Input(s): 0
+	//Output(s): 0
+	public void testPerson009()
+	{
+		Student testObj = new Student();
+		try
+		{
+			assertEquals(0,testObj.StudentNumber());
+		}
+		catch(Exception e)
+		{
+			fail("Error in code");
+		}
+	}
+	
 }

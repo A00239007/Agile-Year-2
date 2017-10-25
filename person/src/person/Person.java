@@ -44,6 +44,11 @@ public class Person implements Day, Month, Year, PhoneNumber {
 	{
 		return lastName;
 	}
+	
+	public String getGender()
+	{
+		return gender;
+	}
 	@Override
 	public int getPhone() {
 		// TODO Auto-generated method stub
