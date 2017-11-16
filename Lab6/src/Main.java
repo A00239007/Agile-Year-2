@@ -3,18 +3,22 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
-public class Main {
+public class Main{
 	public static void main(String [] args) throws FileNotFoundException
 	{
-		File f = new File("C:\\Users\\A00239007\\Desktop\\text.txt");
+		File f = new File("C:\\Users\\Simon Harper\\Desktop\\text.txt");
 		Scanner sc = new Scanner(f);
 		String sentence = "";
-		while(sc.hasNextLine())
+		while(sc.hasNext())
 		{
-			sentence += sc.next();
+			sentence += sc.next()+" ";
 		}
 		String [] words = sentence.split(" ");
-		
+		sort(words);
+		for(int i = 0; i<words.length;i++)
+		{
+			System.out.print(words[i]+" ");
+		}
 	}
 	
 	public static void swap(String [] b, int i, int j)
@@ -31,7 +35,7 @@ public class Main {
 			int least = i;
 			for(int j = i+1; j<b.length;j++)
 			{
-				if(( b[least]).compareTo(b[least])<1)
+				if(( b[j]).compareTo(b[least])<1)
 				{
 					least = j;
 				}
