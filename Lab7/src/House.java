@@ -1,4 +1,3 @@
-
 public class House extends Building implements Room{
 	private int roomNumber;
     public House() {
