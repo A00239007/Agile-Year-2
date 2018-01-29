@@ -32,39 +32,30 @@ public class Part_2 extends JFrame implements ActionListener {
 	
 	class CanvasPanel extends JPanel implements MouseListener
 	{
-		
+		public int x,y;
 		public CanvasPanel()
 		{
+			
 			this.setBackground(Color.gray);
 			this.addMouseListener(this);
 			this.setPreferredSize(new Dimension(350,300));
 		}
 		
-		public void drawLines()
-		{
-			repaint();
-		}
 		
 		public void paint(Graphics g)
 		{
 			super.paint(g);
-			double check = Math.random()*100;
-			if(check>0 && check < 50)
-			{
-				g.setColor(Color.red);
-			    g.fillOval((int)(Math.random()*(20+1)),(int)(Math.random()*(50+1)),(int)(Math.random()*(100+1)),(int)(Math.random()*(100+1)));
-			    
-			}
-			else
-			{
-				
-			    g.setColor(Color.blue);
-			    g.fillRect(100, 100, 100, 200);
-			}
+			int height = (int)(Math.random()*101);
+			int width = (int)(Math.random()*101);
+			g.fillOval(x,y,height,width);
+					
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
+			this.x = e.getX()-20;
+			this.y = e.getY()-20;
+			
 			repaint();
 		}
 
@@ -97,7 +88,7 @@ public class Part_2 extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		drawingArea.drawLines();
+		
 	}
 	public static void main(String [] args)
 	{
