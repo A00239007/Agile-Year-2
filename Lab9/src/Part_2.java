@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Part_2 extends JFrame implements ActionListener {
 	
 	private CanvasPanel drawingArea = new CanvasPanel();
+	private ShapePanel shapeArea = new ShapePanel();
 	
 	public Part_2()
 	{
@@ -30,9 +31,54 @@ public class Part_2 extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
+	class ShapePanel extends JPanel implements MouseListener
+	{
+		public ShapePanel()
+		{
+			
+			this.setBackground(Color.gray);
+			this.addMouseListener(this);
+			this.setPreferredSize(new Dimension(350,300));
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	class CanvasPanel extends JPanel implements MouseListener
 	{
 		public int x,y;
+		private int height,width;
+		private Color color = Color.BLUE;
+		
 		public CanvasPanel()
 		{
 			
@@ -45,24 +91,41 @@ public class Part_2 extends JFrame implements ActionListener {
 		public void paint(Graphics g)
 		{
 			super.paint(g);
-			int height = (int)(Math.random()*101);
-			int width = (int)(Math.random()*101);
+			this.height = (int)(Math.random()*101);
+			this.width = (int)(Math.random()*101);
+			g.setColor(color);	
 			g.fillOval(x,y,height,width);
-					
+			
 		}
+		
+		public void changeColor() {
+	        if (color == Color.BLUE) {
+	            color = Color.RED;
+	        } else {
+	            color = color.BLUE;
+	        }
+	        repaint();
+	    }
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			this.x = e.getX()-20;
 			this.y = e.getY()-20;
+			if (this.x<=this.width||this.y<=this.height)
+			{
+                
+            }
+			else
+			{
+				repaint();
+			}
 			
-			repaint();
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+			changeColor();
 		}
 
 		@Override
