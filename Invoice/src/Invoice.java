@@ -7,7 +7,7 @@ import java.sql.Date;
 public class Invoice {
 
 	int ID;
-	Order order;
+	//Order order;
 	double priceCorrection;
 	Date deliveryDate;
 	
@@ -18,10 +18,10 @@ public class Invoice {
 	 * @param delDate is the date of when the delivery is going to be made
 	 * The constructor for Invoice
 	 */
-	public Invoice(int id, Order order, double pCorrection, Date delDate)
+	public Invoice(int id, /*Order order,*/ double pCorrection, Date delDate)
 	{
 		this.ID = id;
-		this.order = order;
+		//this.order = order;
 		this.priceCorrection = pCorrection;
 		this.deliveryDate = delDate;
 	}
@@ -42,7 +42,7 @@ public class Invoice {
 	 * @param priceCorrection is the price that you want the original price of the publications to change too 
 	 * @param delvieryDate is the date of when the delivery is going to be made
 	 */
-	public void CreateInvoice(int ID, Order order, double priceCorrection, Date delvieryDate)
+	public void CreateInvoice(int ID, /*Order order,*/ double priceCorrection, Date delvieryDate)
 	{
 		
 	}
