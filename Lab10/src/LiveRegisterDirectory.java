@@ -20,11 +20,12 @@ public class LiveRegisterDirectory {
 			list.add(line);
 			count++;
 		}
-		for(String[] print : list)
+		//System.out.println(list.get(0)[0]);
+		for(int i = 0; i<list.size(); i++)
 		{
-			for(int i = 0; i<print.length; i++)
+			for(int j = 0; j<list.get(i)[j].length(); j++)
 			{
-				System.out.println(print[i]);
+				System.out.println(list.get(i)[j]);
 			}
 		}
 	}
