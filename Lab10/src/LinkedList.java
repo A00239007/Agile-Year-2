@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
  
 public class LinkedList<E> {
@@ -29,6 +30,23 @@ public class LinkedList<E> {
      * returns the size of the linked list
      * @return
      */
+    
+    public E getValue(int index)
+    {
+        Node tmp = head;
+        int count = 0;
+        while(tmp!=null)
+        {
+            if(count == index)
+            {
+                return tmp.element;
+            }
+            count++;
+            tmp = tmp.next;
+        }
+        return null;
+    }
+    
     public int size() { return size; }
      
     /**
