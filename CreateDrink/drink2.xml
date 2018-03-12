@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SoftDrinks>
+  <Drink name="Coke">
+        <Company>CocaCola</Company>
+        <Colour>Black</Colour>
+        <Qty>2</Qty>
+   </Drink>
+  <Drink name="Fanta">
+        <Company>CocaCola</Company>
+        <Colour>Orange</Colour>
+        <Qty>3</Qty>
+   </Drink>
+  <Drink name="7 Up">
+        <Company>Seven Up</Company>
+        <Colour>Clear</Colour>
+        <Qty>5</Qty>
+   </Drink>
+<Drink name="bepis">
+<Company>Memes By Dad</Company>
+<Colour>Slightly blacker than black</Colour>
+<Qty>More than you would think, but less than you would hope</Qty>
+</Drink>
+</SoftDrinks>
