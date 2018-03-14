@@ -18,6 +18,6 @@ public class MyFirstSAXParser {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser saxParser = factory.newSAXParser();
 		SAXParserEventHandler eventHandler = new SAXParserEventHandler();
-		saxParser.parse(input, eventHandler);;
+		saxParser.parse(input, eventHandler);
 	}
 }

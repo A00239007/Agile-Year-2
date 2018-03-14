@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+    <student>
+        <name title="Mr.">Joe Bloggs</name>
+        <age>21</age>
+        <college>AIT</college>
+        <school>Engineering</school>
+    </student>
+    <student>
+        <name title="Ms.">Ann Bloggs</name>
+        <age>20</age>
+        <college>UL</college>
+        <school>Business</school>
+    </student>
+    <student>
+        <name title="Mr.">John Smith</name>
+        <age>25</age>
+        <college>NUIG</college>
+        <school>Humanities</school>
+    </student>
+</students>
