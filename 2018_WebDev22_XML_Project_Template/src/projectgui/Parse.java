@@ -116,6 +116,8 @@ public class Parse extends JPanel implements ActionListener{
             if(saxRadioButton.isSelected()){
                 try {
                     mainTextArea.append("XML parsed using SAX\n");
+                    SAXParser saxParser = new SAXParser();
+                    saxParser.parser();
                 } catch (Exception exception) {
                     
                 }

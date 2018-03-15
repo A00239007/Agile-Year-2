@@ -26,12 +26,13 @@ public class SAXParser extends DefaultHandler {
     boolean inAge;
     boolean inCollege;
     boolean inSchool;
+    Parse parse = new Parse();
     
     public void startElement(String uri, String localName, String qName,
 			Attributes attribute) throws SAXException {
 		if (qName.equalsIgnoreCase("student")) {
 			String title = attribute.getValue("title");
-			System.out.println("Title: " + title);
+			parse.mainTextArea.append("Title: " + title);
 		} else if (qName.equalsIgnoreCase("name")) {
 			inName = true;
 		} else if (qName.equalsIgnoreCase("age")) {
@@ -45,16 +46,16 @@ public class SAXParser extends DefaultHandler {
     
     public void characters(char[] c, int start, int length) throws SAXException {
 		if (inName) {
-			System.out.println("First Name: " + new String(c, start, length));
+                        parse.mainTextArea.append("First Name: " + new String(c, start, length));
 			inName = false;
 		} else if (inAge) {
-			System.out.println("Last Name: " + new String(c, start, length));
+			parse.mainTextArea.append("Age: " + new String(c, start, length));
 			inAge = false;
 		} else if (inSchool) {
-			System.out.println("Nick Name: " + new String(c, start, length));
+			parse.mainTextArea.append("School: " + new String(c, start, length));
 			inSchool = false;
 		} else if (inCollege) {
-			System.out.println("Marks: " + new String(c, start, length)+"\n");
+			parse.mainTextArea.append("College: " + new String(c, start, length)+"\n");
 			inCollege = false;
 		}
 	}
@@ -62,16 +63,16 @@ public class SAXParser extends DefaultHandler {
     public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		if (qName.equalsIgnoreCase("student")) {
-			System.out.println("End Element: " + qName);
+			parse.mainTextArea.append("End Element: " + qName);
 		}
 	}
 
-    public String parser() throws Exception
+    public void parser() throws Exception
     {
         File inputFile = new File("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
         SAXParserFactory factory = SAXParserFactory.newInstance();
         javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
         SAXParser handler = new SAXParser();
-        return saxParser.parse(inputFile, handler);
+        saxParser.parse(inputFile, handler);
     }
 }
