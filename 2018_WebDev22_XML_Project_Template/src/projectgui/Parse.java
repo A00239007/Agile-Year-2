@@ -3,7 +3,11 @@ package projectgui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -14,6 +18,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JMenuItem;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.events.Characters;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * SetUp Class for the GUI and also looks after the Action Listener as well
@@ -116,12 +131,58 @@ public class Parse extends JPanel implements ActionListener{
             if(saxRadioButton.isSelected()){
                 try {
                     mainTextArea.append("XML parsed using SAX\n");
-                    SAXParser saxParser = new SAXParser();
-                    saxParser.parser();
-                } catch (Exception exception) {
-                    
+                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    SAXParserFactory factory = SAXParserFactory.newInstance();
+                    javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
+                    DefaultHandler handler = new DefaultHandler(){
+                        boolean inName = false;
+                        boolean inAge = false;
+                        boolean inCollege = false;
+                        boolean inSchool = false ;
+                        boolean title = false;
+
+                        public void startElement(String uri, String localName, String qName,
+                                            Attributes attribute) throws SAXException {
+                                    if (qName.equalsIgnoreCase("student")) {
+                                            String title = attribute.getValue("title");
+                                            mainTextArea.append("\nTitle: "+title);
+                                    } else if (qName.equalsIgnoreCase("name")) {
+                                            inName = true;
+                                    } else if (qName.equalsIgnoreCase("age")) {
+                                            inAge = true;
+                                    } else if (qName.equalsIgnoreCase("college")) {
+                                            inCollege = true;
+                                    } else if (qName.equalsIgnoreCase("school")) {
+                                            inSchool = true;
+                                    }
+                            }
+
+                        public void characters(char[] c, int start, int length) throws SAXException {
+                                    if (inName) {
+                                            mainTextArea.append("\nFirst Name: " + new String(c, start, length));
+                                            inName = false;
+                                    } else if (inAge) {
+                                            mainTextArea.append("\nAge: " + new String(c, start, length));
+                                            inAge = false;
+                                    } else if (inCollege) {
+                                            mainTextArea.append("\nCollege: " + new String(c, start, length));
+                                            inCollege = false;
+                                    } else if (inSchool) {
+                                            mainTextArea.append("\nSchool: " + new String(c, start, length));
+                                            inSchool = false;
+                                    }
+                            }
+
+                        public void endElement(String uri, String localName, String qName)
+                                            throws SAXException {
+                                    if (qName.equalsIgnoreCase("student")) {
+                                            mainTextArea.append("\n");
+                                    }
+                            }
+                    };
+                    saxParser.parse(inputFile, handler);
+                } catch (Exception exception) {   
                 }
-                
             }
             else if(domRadioButton.isSelected()){
                 try {
@@ -136,16 +197,90 @@ public class Parse extends JPanel implements ActionListener{
                 }
             }
             else if(staxRadioButton.isSelected()){
-                // do StAX stuff
-                /*
-                *
-                * This is where your StAX parsing logic should go.
-                *
-                */
-                mainTextArea.append("XML parsed using StAX\n");
+                try {
+                    mainTextArea.append("XML parsed using StAX\n");
+                    boolean bFirstName = false;
+                    boolean bLastName = false;
+                    boolean bNickName = false;
+                    boolean bMarks = false;
+                    File fileInput = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    XMLInputFactory factory = XMLInputFactory.newInstance();
+                    XMLEventReader eventReader = factory.createXMLEventReader(new FileReader(fileInput));
+                    
+                    while(eventReader.hasNext())
+                    {
+                        XMLEvent event = eventReader.nextEvent();
+                        switch(event.getEventType())
+                        {
+                            case XMLStreamConstants.START_ELEMENT:
+                                StartElement startElement = event.asStartElement();
+                                String qName = startElement.getName().getLocalPart();
+                                if(qName.equalsIgnoreCase("student"))
+                                {
+                                    
+                                    Iterator<Attributes> attribute = startElement.getAttributes();
+                                    String title = "";
+                                    if(attribute.hasNext())
+                                    {
+                                        title = attribute.next().getValue("title");
+                                    }
+                                    mainTextArea.append("\nTitle: "+title);
+                                }
+                                else if(qName.equalsIgnoreCase("name"))
+                                {
+                                    bFirstName = true;
+                                }
+                                else if(qName.equalsIgnoreCase("age"))
+                                {
+                                    bLastName = true;
+                                }
+                                else if(qName.equalsIgnoreCase("college"))
+                                {
+                                    bNickName = true;
+                                }
+                                else if(qName.equalsIgnoreCase("age"))
+                                {
+                                    bMarks = true;
+                                }
+                                break;
+                            case XMLStreamConstants.CHARACTERS:
+                                Characters characters = event.asCharacters();
+                                if(bFirstName)
+                                {
+                                    mainTextArea.append("\nName: "+characters.getData());
+                                    bFirstName = false;
+                                }
+                                else if(bLastName)
+                                {
+                                    mainTextArea.append("\nAge: "+characters.getData());
+                                    bLastName = false;
+                                }
+                                else if(bNickName)
+                                {
+                                    mainTextArea.append("\nCollege: "+characters.getData());
+                                    bNickName = false;
+                                }
+                                else if(bMarks)
+                                {
+                                    mainTextArea.append("\nSchool: "+characters.getData());
+                                    bMarks = false;
+                                }
+                                break;
+                            case XMLStreamConstants.END_ELEMENT:
+                                EndElement endElement = event.asEndElement();
+                                if(endElement.getName().getLocalPart().equalsIgnoreCase("student"))
+                                {
+                                    mainTextArea.append("\n");
+                                }
+                                break;
+                        }
+                    }
+                    mainTextArea.setCaretPosition(0);
+                } catch (Exception ex) {
+                    
+                }
             }
-            mainTextArea.setCaretPosition(0);
-        } else if (e.getSource() == clearButton) {
+        } else if(e.getSource() == clearButton) {
             // When the Clear Button is pressed...
             mainTextArea.setText(null);
         }

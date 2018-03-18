@@ -24,7 +24,7 @@ public class STAXParserStudent {
 		boolean bLastName = false;
 		boolean bNickName = false;
 		boolean bMarks = false;
-		File fileInput = new File("C:\\Notepad++\\class2.xml");
+		File fileInput = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLEventReader eventReader = factory.createXMLEventReader(new FileReader(fileInput));
 		
@@ -40,22 +40,26 @@ public class STAXParserStudent {
 					{
 						System.out.println("Start Element: "+qName);
 						Iterator<Attributes> attribute = startElement.getAttributes();
-						String rollNo = attribute.next().getValue("rollno");
+						String rollNo = "";
+						if(attribute.hasNext())
+						{
+						     rollNo = attribute.next().getValue("title");
+						}
 						System.out.println("Roll No: "+rollNo);
 					}
-					else if(qName.equalsIgnoreCase("firstname"))
+					else if(qName.equalsIgnoreCase("name"))
 					{
 						bFirstName = true;
 					}
-					else if(qName.equalsIgnoreCase("lastName"))
+					else if(qName.equalsIgnoreCase("age"))
 					{
 						bLastName = true;
 					}
-					else if(qName.equalsIgnoreCase("nickname"))
+					else if(qName.equalsIgnoreCase("college"))
 					{
 						bNickName = true;
 					}
-					else if(qName.equalsIgnoreCase("marks"))
+					else if(qName.equalsIgnoreCase("school"))
 					{
 						bMarks = true;
 					}
