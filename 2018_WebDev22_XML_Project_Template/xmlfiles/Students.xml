@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <students>
     <student>
         <name title="Mr.">Joe Bloggs</name>
@@ -18,4 +18,16 @@
         <college>NUIG</college>
         <school>Humanities</school>
     </student>
+<student title="mr">
+<name>simon harper</name>
+<age>19</age>
+<college>ait</college>
+<school>cloud computing</school>
+</student>
+<student title="asdsadas">
+<name>sadasda</name>
+<age>asdasdasd</age>
+<college>asddsada</college>
+<school>asdadsa</school>
+</student>
 </students>

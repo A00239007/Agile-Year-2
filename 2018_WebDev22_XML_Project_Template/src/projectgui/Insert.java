@@ -3,6 +3,10 @@ package projectgui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,6 +15,18 @@ import javax.swing.JRadioButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 /**
  * SetUp Class for the GUI and also looks after the Action Listener as well
@@ -46,8 +62,8 @@ public class Insert extends JPanel implements ActionListener{
             nameLabel           = new JLabel("Name:");
             titleLabel          = new JLabel("Title:");
             collegeLabel        = new JLabel("College:");
-            courseLabel         = new JLabel("Course:");
-            marksLabel          = new JLabel("Marks:");
+            courseLabel         = new JLabel("School:");
+            marksLabel          = new JLabel("Age:");
             nameTextArea        = new JTextField();
             titleTextArea       = new JTextField();
             collegeTextArea     = new JTextField();
@@ -144,26 +160,70 @@ public class Insert extends JPanel implements ActionListener{
             String title = titleTextArea.getText();
             String name = nameTextArea.getText();
             String college = collegeTextArea.getText();
-            String course = courseTextArea.getText();
-            String marks = marksTextArea.getText();
+            String school = courseTextArea.getText();
+            String age = marksTextArea.getText();
             
             if(domRadioButton.isSelected()){
-                // do DOM stuff
-                /*
-                *
-                * This is where your DOM insertion logic should go.
-                *
-                */
-                JOptionPane.showMessageDialog(mainPanel, "New element added using DOM!", "Success!", JOptionPane.PLAIN_MESSAGE);
+                try {
+                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder builder = factory.newDocumentBuilder();
+                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    
+                    Document dom = builder.parse(inputFile);
+                    dom.getDocumentElement().normalize();
+                    Element root = dom.getDocumentElement();
+                    
+                    Element student = dom.createElement("student");
+                    student.setAttribute("title", title);
+                    
+                    Element nme = dom.createElement("name");
+                    Text nameText = dom.createTextNode(name);
+                    nme.appendChild(nameText);
+                    student.appendChild(nme);
+                    
+                    Element ag = dom.createElement("age");
+                    Text ageText = dom.createTextNode(age);
+                    ag.appendChild(ageText);
+                    student.appendChild(ag);
+                    
+                    Element colleg = dom.createElement("college");
+                    Text collegeText = dom.createTextNode(college);
+                    colleg.appendChild(collegeText);
+                    student.appendChild(colleg);
+                    
+                    Element schol = dom.createElement("school");
+                    Text schoolText = dom.createTextNode(school);
+                    schol.appendChild(schoolText);
+                    student.appendChild(schol);
+                    
+                    root.appendChild(student);
+                    
+                    TransformerFactory transFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transFactory.newTransformer();
+                    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                    DOMSource source = new DOMSource(dom);
+                    StreamResult result = new StreamResult(inputFile);
+                    transformer.transform(source, result);
+                    
+                    JOptionPane.showMessageDialog(mainPanel, "New element added using DOM!", "Success!", JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception ex) {
+                    Logger.getLogger(Insert.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else if(staxRadioButton.isSelected()){
-                // do StAX stuff
-                /*
-                *
-                * This is where your StAX insertion logic should go.
-                *
-                */
-                JOptionPane.showMessageDialog(mainPanel, "New element added using StAX!", "Success!", JOptionPane.PLAIN_MESSAGE);
+                try {
+                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder builder = factory.newDocumentBuilder();
+                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    
+                    Document dom = builder.parse(inputFile);
+                    dom.getDocumentElement().normalize();
+                    
+                    
+                    JOptionPane.showMessageDialog(mainPanel, "New element added using StAX!", "Success!", JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception ex) {
+                    Logger.getLogger(Insert.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else if (e.getSource() == clearButton) {
             // When the Clear Button is pressed...
