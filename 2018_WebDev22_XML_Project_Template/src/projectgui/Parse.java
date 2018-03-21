@@ -131,7 +131,7 @@ public class Parse extends JPanel implements ActionListener{
             if(saxRadioButton.isSelected()){
                 try {
                     mainTextArea.append("XML parsed using SAX\n");
-                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    File inputFile = new File("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
                     SAXParserFactory factory = SAXParserFactory.newInstance();
                     javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
                     DefaultHandler handler = new DefaultHandler(){
@@ -159,7 +159,7 @@ public class Parse extends JPanel implements ActionListener{
 
                         public void characters(char[] c, int start, int length) throws SAXException {
                                     if (inName) {
-                                            mainTextArea.append("\nFirst Name: " + new String(c, start, length));
+                                            mainTextArea.append("\nName: " + new String(c, start, length));
                                             inName = false;
                                     } else if (inAge) {
                                             mainTextArea.append("\nAge: " + new String(c, start, length));
@@ -203,7 +203,7 @@ public class Parse extends JPanel implements ActionListener{
                     boolean bLastName = false;
                     boolean bNickName = false;
                     boolean bMarks = false;
-                    File fileInput = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    File fileInput = new File("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
                     XMLInputFactory factory = XMLInputFactory.newInstance();
                     XMLEventReader eventReader = factory.createXMLEventReader(new FileReader(fileInput));
                     

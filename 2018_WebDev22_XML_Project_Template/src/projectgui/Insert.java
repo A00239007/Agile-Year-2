@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -18,6 +21,12 @@ import javax.swing.JTextField;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -167,7 +176,7 @@ public class Insert extends JPanel implements ActionListener{
                 try {
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = factory.newDocumentBuilder();
-                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    File inputFile = new File("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
                     
                     Document dom = builder.parse(inputFile);
                     dom.getDocumentElement().normalize();
@@ -212,12 +221,46 @@ public class Insert extends JPanel implements ActionListener{
             }
             else if(staxRadioButton.isSelected()){
                 try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder = factory.newDocumentBuilder();
-                    File inputFile = new File("C:\\Users\\Simon Harper\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml");
+                    ArrayList<XMLEvent> eventList = new ArrayList<>();
+                    XMLInputFactory inFactory = XMLInputFactory.newInstance();
+                    XMLEventReader eventReader = inFactory.createXMLEventReader(new FileInputStream("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml"));
+                    XMLOutputFactory factory = XMLOutputFactory.newInstance();
+                    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
                     
-                    Document dom = builder.parse(inputFile);
-                    dom.getDocumentElement().normalize();
+                    while(eventReader.hasNext())
+                    {
+                        eventList.add(eventReader.nextEvent());
+                    }
+                    
+                    XMLEventWriter writer = factory.createXMLEventWriter(new FileWriter("C:\\Users\\A00239007\\Documents\\Repo\\agile-year-2\\2018_WebDev22_XML_Project_Template\\xmlfiles\\Students.xml"));
+                    
+                    for(XMLEvent event: eventList)
+                    {
+                        if(event.isEndElement()&&event.asEndElement().getName().toString().equals("students"))
+                        {
+                            writer.add(eventFactory.createStartElement("", null, "student"));
+                            writer.add(eventFactory.createAttribute("title", title));
+                            
+                            writer.add(eventFactory.createStartElement("", null, "name"));
+                            writer.add(eventFactory.createCharacters(name));
+                            writer.add(eventFactory.createEndElement("", null, "name"));
+                            
+                            writer.add(eventFactory.createStartElement("", null, "age"));
+                            writer.add(eventFactory.createCharacters(age));
+                            writer.add(eventFactory.createEndElement("", null, "age"));
+                            
+                            writer.add(eventFactory.createStartElement("", null, "college"));
+                            writer.add(eventFactory.createCharacters(college));
+                            writer.add(eventFactory.createEndElement("", null, "college"));
+                            
+                            writer.add(eventFactory.createStartElement("", null, "school"));
+                            writer.add(eventFactory.createCharacters(school));
+                            writer.add(eventFactory.createEndElement("", null, "school"));
+                        }
+                        writer.add(event);
+                    }
+                    writer.flush();
+                    writer.close();
                     
                     
                     JOptionPane.showMessageDialog(mainPanel, "New element added using StAX!", "Success!", JOptionPane.PLAIN_MESSAGE);
